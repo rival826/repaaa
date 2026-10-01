@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Repa Ulpi 🐾 Rumahnya kucing-kucing lucu</title>
+<meta name="description" content="Repa Ulpi: rumah kecil buat kucing-kucing lucu. Elus mereka, dengar meongnya, dan tangkap ikan bareng.">
+<script>try{var t=localStorage.getItem('repa-ulpi-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@400;500;600&display=swap">
+<style>
+/* Palet: susu lilac (latar), tinta plum, oranye tabby (Repa), abu kebiruan (Ulpi),
+   pink permen, mint, butter, langit. Chewy = suara kucing, Fredoka = teks dan tombol. */
+:root{
+  --bg:#ECE6FF;--bg-soft:#DDD3FB;--card:#FFFFFF;
+  --ink:#2E2140;--ink-soft:#66557F;
+  --border:#2E2140;--shadow:#2E2140;
+  --stage:#FFD3E3;--dot:rgba(255,255,255,.8);
+  --bar-bg:#F3EEFF;--paw:#D6CAF6;--heart:#F0457A;
+  --water-a:#D6EFFF;--water-b:#8DCBF4;--veil:rgba(255,255,255,.64);
+  --whisk:#2E2140;
+  --orange:#FF9A4D;--grey:#B9C2D0;--pink:#FFB3CC;--mint:#AEE9D1;--butter:#FFE27A;--sky:#B5DCFF;
+  --on-color:#2E2140;
+  --font-display:'Chewy','Fredoka',ui-rounded,'Comic Sans MS','Chalkboard SE',system-ui,sans-serif;
+  --font-body:'Fredoka',ui-rounded,'Nunito','Segoe UI',system-ui,-apple-system,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1B1429;--bg-soft:#281E3D;--card:#2C2243;
+    --ink:#F6EEFF;--ink-soft:#C9B9E2;
+    --border:#8470B0;--shadow:#0C0716;
+    --stage:#3B2A57;--dot:rgba(255,255,255,.07);
+    --bar-bg:#1B1429;--paw:#2A2040;--heart:#FF7FA8;
+    --water-a:#2D4E7A;--water-b:#1B3358;--veil:rgba(27,20,41,.64);
+    --whisk:#F6EEFF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1B1429;--bg-soft:#281E3D;--card:#2C2243;
+  --ink:#F6EEFF;--ink-soft:#C9B9E2;
+  --border:#8470B0;--shadow:#0C0716;
+  --stage:#3B2A57;--dot:rgba(255,255,255,.07);
+  --bar-bg:#1B1429;--paw:#2A2040;--heart:#FF7FA8;
+  --water-a:#2D4E7A;--water-b:#1B3358;--veil:rgba(27,20,41,.64);
+  --whisk:#F6EEFF;
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 88px)}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,p{margin:0}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;touch-action:manipulation}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.wrap{position:relative;z-index:1;width:min(1040px,100% - 32px);margin-inline:auto}
+
+/* cakar di latar: tenang, diam, dan samar */
+.paws{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.paw{position:absolute;width:var(--s,40px);aspect-ratio:28/32;fill:var(--paw);transform:rotate(var(--r,0deg))}
+
+/* tombol */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 22px;font-weight:600;font-size:1rem;text-decoration:none;color:var(--ink);background:var(--card);border:3px solid var(--border);border-radius:999px;box-shadow:0 5px 0 var(--shadow);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translateY(5px);box-shadow:0 0 0 var(--shadow)}
+.btn-main{background:var(--orange);color:var(--on-color)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;margin:12px auto 0;width:min(1040px,100% - 24px);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px 8px 14px;background:var(--card);border:3px solid var(--border);border-radius:999px;box-shadow:0 4px 0 var(--shadow)}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--font-display);font-size:1.55rem;line-height:1;color:var(--ink)}
+.brand svg{width:34px;height:34px;flex:none}
+.nav{display:none;gap:4px;align-items:center}
+.nav a{text-decoration:none;font-weight:500;padding:6px 14px;border-radius:999px;color:var(--ink)}
+.nav a:hover{background:var(--bg-soft)}
+.toggle{width:44px;height:44px;flex:none;border-radius:50%;border:3px solid var(--border);background:var(--butter);cursor:pointer;font-size:1.15rem;line-height:1;display:grid;place-items:center;box-shadow:0 3px 0 var(--shadow)}
+.toggle:active{transform:translateY(3px);box-shadow:none}
+@media(min-width:640px){.nav{display:flex}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr);gap:26px;align-items:center;padding:30px 0 8px}
+@media(min-width:820px){.hero{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;padding-top:46px}}
+.title{--t:clamp(3px,.9vw,5px);font-family:var(--font-display);font-weight:400;line-height:.9;font-size:clamp(4.2rem,21vw,8rem);letter-spacing:.5px;
+  text-shadow:
+    var(--t) 0 0 var(--border-t),calc(var(--t)*-1) 0 0 var(--border-t),
+    0 var(--t) 0 var(--border-t),0 calc(var(--t)*-1) 0 var(--border-t),
+    var(--t) var(--t) 0 var(--border-t),calc(var(--t)*-1) var(--t) 0 var(--border-t),
+    var(--t) calc(var(--t)*-1) 0 var(--border-t),calc(var(--t)*-1) calc(var(--t)*-1) 0 var(--border-t),
+    calc(var(--t)*2) calc(var(--t)*2) 0 var(--border-t)}
+.title span{display:block;width:max-content}
+.t1{color:var(--orange);transform:rotate(-3deg)}
+.t2{color:var(--grey);transform:rotate(2deg) translateX(.4em)}
+.lead{margin-top:20px;max-width:30rem;font-size:1.15rem;color:var(--ink-soft)}
+:root{--border-t:#2E2140}
+
+.stage{position:relative;width:100%;max-width:520px;margin-inline:auto;padding:6px 14px 18px;background-color:var(--stage);background-image:radial-gradient(var(--dot) 2.5px,transparent 3px);background-size:22px 22px;border:3px solid var(--border);border-radius:32px;box-shadow:6px 6px 0 var(--shadow)}
+.pals{display:flex;justify-content:center;align-items:flex-end;gap:10px;padding-top:50px}
+.pal{position:relative;margin:0;flex:1 1 0;max-width:210px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.pal .cat{width:100%}
+.tag{font-family:var(--font-display);font-size:1.3rem;line-height:1.2;padding:2px 18px;border:3px solid var(--border);border-radius:999px;color:var(--on-color);box-shadow:3px 3px 0 var(--shadow)}
+.t-a{background:var(--orange);transform:rotate(-3deg)}
+.t-b{background:var(--grey);transform:rotate(2deg)}
+.controls{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:20px}
+.counter{margin-top:14px;text-align:center;font-weight:500}
+.counter b{display:inline-block;min-width:1ch;font-family:var(--font-display);font-weight:400;font-size:1.8rem;line-height:1;color:var(--heart);vertical-align:-2px}
+.counter b.bump{animation:bump .35s ease}
+@keyframes bump{50%{transform:scale(1.5)}}
+.hint{margin-top:2px;text-align:center;font-size:.92rem;color:var(--ink-soft)}
+
+/* kucing */
+.cat{position:relative;display:block;cursor:pointer;user-select:none;-webkit-user-select:none;border-radius:24px}
+.cat svg{display:block;width:100%;height:auto;overflow:visible;transform-origin:50% 100%}
+.cat .tail{transform-origin:222px 254px;transform-box:view-box;animation:wag 3.2s ease-in-out var(--blinkd,0s) infinite}
+@keyframes wag{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(9deg)}}
+.cat .blink{transform-box:fill-box;transform-origin:center;animation:blink 5.2s var(--blinkd,0s) infinite}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+.cat .look{transition:transform .14s ease-out}
+.cat .eye-happy,.cat .mouth-open{display:none}
+.cat.happy .blink{display:none}
+.cat.happy .eye-happy{display:inline}
+.cat.meowing .mouth-smile{display:none}
+.cat.meowing .mouth-open{display:inline}
+.cat.bounce svg{animation:boing .65s ease}
+@keyframes boing{0%{transform:scale(1,1)}25%{transform:scale(1.07,.92)}55%{transform:translateY(-10px) scale(.97,1.05)}80%{transform:scale(1.02,.98)}100%{transform:scale(1,1)}}
+.whisk{stroke:var(--whisk)}
+
+/* balon ucapan dan hati */
+.bubble{position:absolute;left:50%;top:2px;z-index:5;width:max-content;max-width:176px;text-align:center;padding:3px 14px 4px;background:var(--card);color:var(--ink);border:3px solid var(--border);border-radius:18px;box-shadow:3px 3px 0 var(--shadow);font-family:var(--font-display);font-size:1.1rem;line-height:1.25;pointer-events:none;opacity:0;transform:translate(-50%,-100%) scale(.5);transform-origin:50% 100%;transition:transform .25s cubic-bezier(.3,1.6,.5,1),opacity .18s}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-9px;width:12px;height:12px;background:var(--card);border-right:3px solid var(--border);border-bottom:3px solid var(--border);transform:translateX(-50%) rotate(45deg)}
+.bubble.show{opacity:1;transform:translate(-50%,-100%) scale(1)}
+.heart{position:absolute;left:var(--x,50%);top:38%;z-index:4;color:var(--heart);font-size:1.5rem;line-height:1;pointer-events:none;animation:rise 1.2s ease-out both}
+@keyframes rise{0%{opacity:0;transform:translate(-50%,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx,0px)),-90px) scale(1.2) rotate(var(--rot,0deg))}}
+
+/* bagian */
+.section{padding:48px 0 6px}
+.h2{font-family:var(--font-display);font-weight:400;font-size:clamp(2.2rem,8.5vw,3.3rem);line-height:1.05}
+.sub{margin:8px 0 24px;max-width:32rem;color:var(--ink-soft)}
+
+/* geng kucing */
+.friends{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr))}
+.friend{display:flex;flex-direction:column;gap:6px;padding:14px;background:var(--card);border:3px solid var(--border);border-radius:26px;box-shadow:5px 5px 0 var(--shadow)}
+.friend:nth-child(even){border-radius:26px 26px 26px 8px}
+.friend-art{--whisk:#2E2140;position:relative;margin-bottom:6px;padding:52px 24px 10px;background:var(--tint);border:3px solid var(--border);border-radius:20px}
+.friend-art .cat{max-width:200px;margin-inline:auto}
+.friend-art .bubble{top:54px}
+.friend h3{font-family:var(--font-display);font-weight:400;font-size:1.8rem;line-height:1.1}
+.role{font-weight:600}
+.fav{color:var(--ink-soft);font-size:.96rem}
+.stats{display:grid;gap:8px;margin-top:8px}
+.stat{display:grid;grid-template-columns:76px 1fr;align-items:center;gap:10px;font-size:.92rem;font-weight:500}
+.bar{height:15px;background:var(--bar-bg);border:2.5px solid var(--border);border-radius:99px;overflow:hidden}
+.bar i{display:block;width:0;height:100%;background:var(--c);border-right:2.5px solid var(--border);border-radius:0 99px 99px 0;transition:width 1s cubic-bezier(.2,.9,.25,1)}
+.stat:nth-child(1) .bar i{--c:var(--sky)}
+.stat:nth-child(2) .bar i{--c:var(--pink)}
+.stat:nth-child(3) .bar i{--c:var(--orange)}
+.friend.in .bar i{width:var(--v)}
+
+/* game */
+.game{padding:14px;background:var(--card);border:3px solid var(--border);border-radius:28px;box-shadow:6px 6px 0 var(--shadow)}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;font-weight:500}
+.hud span{padding:3px 8px;text-align:center;white-space:nowrap;background:var(--bg-soft);border:2.5px solid var(--border);border-radius:999px}
+.hud b{margin-left:4px;font-family:var(--font-display);font-weight:400;font-size:1.3rem}
+.arena{position:relative;height:270px;overflow:hidden;border:3px solid var(--border);border-radius:20px;touch-action:manipulation;
+  background:
+    radial-gradient(circle at 18% 78%,rgba(255,255,255,.38) 0 7px,transparent 8px),
+    radial-gradient(circle at 70% 28%,rgba(255,255,255,.32) 0 5px,transparent 6px),
+    radial-gradient(circle at 86% 74%,rgba(255,255,255,.32) 0 9px,transparent 10px),
+    linear-gradient(180deg,var(--water-a),var(--water-b))}
+.fish{position:absolute;left:0;top:0;width:64px;height:44px;padding:0;border:0;background:none;cursor:pointer;filter:drop-shadow(0 3px 0 rgba(0,0,0,.18));transition:left .45s cubic-bezier(.3,1.35,.5,1),top .45s cubic-bezier(.3,1.35,.5,1)}
+.fish::after{content:"";position:absolute;inset:-12px}
+.fish svg{display:block;width:100%;height:100%;pointer-events:none}
+.fish.flip svg{transform:scaleX(-1)}
+.overlay{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:18px;text-align:center;background:var(--veil)}
+.overlay p{max-width:20ch;font-family:var(--font-display);font-size:1.5rem;line-height:1.15;color:var(--ink)}
+.plus{position:absolute;z-index:1;pointer-events:none;font-family:var(--font-display);font-size:1.7rem;color:#fff;text-shadow:2px 2px 0 #2E2140;animation:plus .7s ease-out both}
+@keyframes plus{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-44px)}}
+
+/* sehari jadi kucing */
+.day{list-style:none;margin:0;padding:0 0 0 22px;display:grid;gap:16px;border-left:4px dashed var(--border)}
+.day li{position:relative;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:12px 14px;background:var(--card);border:3px solid var(--border);border-radius:20px;box-shadow:4px 4px 0 var(--shadow)}
+.day li::before{content:"";position:absolute;left:-36px;top:18px;width:18px;height:18px;border-radius:50%;background:var(--dc);border:3px solid var(--border)}
+.day time{padding:2px 10px;font-family:var(--font-display);font-size:1.25rem;line-height:1.3;white-space:nowrap;background:var(--dc);color:var(--on-color);border:2.5px solid var(--border);border-radius:12px}
+.day b{display:block}
+.day span{color:var(--ink-soft);font-size:.95rem}
+.day li:nth-child(5n+1){--dc:var(--sky)}
+.day li:nth-child(5n+2){--dc:var(--pink)}
+.day li:nth-child(5n+3){--dc:var(--mint)}
+.day li:nth-child(5n+4){--dc:var(--butter)}
+.day li:nth-child(5n+5){--dc:var(--orange)}
+
+/* kaki halaman */
+.foot{display:grid;justify-items:center;gap:8px;margin-top:56px;padding:34px 0 40px;text-align:center;border-top:4px dashed var(--border)}
+.foot-big{font-family:var(--font-display);font-size:2rem;line-height:1.1}
+.foot .btn{margin-top:10px}
+.small{margin-top:10px;font-size:.9rem;color:var(--ink-soft)}
+
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:40;width:max-content;max-width:calc(100% - 32px);padding:10px 18px;text-align:center;background:var(--butter);color:var(--on-color);font-weight:600;border:3px solid var(--border);border-radius:18px;box-shadow:4px 4px 0 var(--shadow);opacity:0;pointer-events:none;transform:translate(-50%,20px);transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body id="top">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="pawG">
+      <ellipse cx="0" cy="6" rx="9.5" ry="8"/>
+      <ellipse cx="-10" cy="-5" rx="3.8" ry="5" transform="rotate(-22 -10 -5)"/>
+      <ellipse cx="-3.6" cy="-11" rx="3.8" ry="5"/>
+      <ellipse cx="3.6" cy="-11" rx="3.8" ry="5"/>
+      <ellipse cx="10" cy="-5" rx="3.8" ry="5" transform="rotate(22 10 -5)"/>
+    </g>
+  </defs>
+</svg>
+<div class="paws" id="paws" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="Repa Ulpi, kembali ke atas">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <path d="M6 18L7 4L19 10ZM34 18L33 4L21 10Z" fill="#FF9A4D" stroke="#2E2140" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="20" cy="22" r="15" fill="#FF9A4D" stroke="#2E2140" stroke-width="2.5"/>
+      <circle cx="14.5" cy="21" r="2.4" fill="#2B1D1A"/><circle cx="25.5" cy="21" r="2.4" fill="#2B1D1A"/>
+      <path d="M18 26L22 26L20 28.3Z" fill="#FF7C9C" stroke="#2E2140" stroke-width="1.4" stroke-linejoin="round"/>
+    </svg>
+    <span>Repa Ulpi</span>
+  </a>
+  <nav class="nav" aria-label="Menu utama">
+    <a href="#geng">Kenalan</a>
+    <a href="#main">Main</a>
+    <a href="#hari">Sehari-hari</a>
+  </nav>
+  <button class="toggle" id="themeBtn" type="button" aria-label="Ganti tema">🌙</button>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div class="hero-text">
+      <h1 class="title"><span class="t1">Repa</span> <span class="t2">Ulpi</span></h1>
+      <p class="lead">Rumah kecil buat kucing-kucing lucu. Kerjaannya tidur, makan, dan minta dielus.</p>
+    </div>
+
+    <div class="stage">
+      <div class="pals">
+        <figure class="pal">
+          <div class="cat" id="catRepa"></div>
+          <figcaption class="tag t-a">Repa</figcaption>
+        </figure>
+        <figure class="pal">
+          <div class="cat" id="catUlpi"></div>
+          <figcaption class="tag t-b">Ulpi</figcaption>
+        </figure>
+      </div>
+      <div class="controls">
+        <button class="btn btn-main" id="petBtn" type="button">Elus kucingnya</button>
+        <button class="btn" id="meowBtn" type="button">Dengar meong 🔊</button>
+      </div>
+      <p class="counter">Total elusan: <b id="petCount">0</b></p>
+      <p class="hint">Tap langsung kucingnya juga bisa.</p>
+    </div>
+  </section>
+
+  <section class="wrap section" id="geng">
+    <h2 class="h2">Kenalan sama geng kucing</h2>
+    <p class="sub">Empat sahabat berbulu. Tap salah satunya, mereka pura-pura cuek.</p>
+    <div class="friends" id="friends"></div>
+  </section>
+
+  <section class="wrap section" id="main">
+    <h2 class="h2">Tangkap ikannya</h2>
+    <p class="sub">Tap ikan sebanyak-banyaknya dalam 15 detik. Makin banyak, makin licin.</p>
+    <div class="game">
+      <div class="hud">
+        <span>Skor <b id="score">0</b></span>
+        <span>Waktu <b id="time">15</b></span>
+        <span>Rekor <b id="best">0</b></span>
+      </div>
+      <div class="arena" id="arena">
+        <button class="fish" id="fish" type="button" hidden aria-label="Tangkap ikan">
+          <svg viewBox="0 0 64 44" aria-hidden="true">
+            <path d="M6 22Q22 3 42 13L59 3L54 22L59 41L42 31Q22 41 6 22Z" fill="#7CC4FF" stroke="#2E2140" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M30 14Q35 22 30 30" fill="none" stroke="#2E2140" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+            <circle cx="15" cy="19" r="3" fill="#2E2140"/>
+          </svg>
+        </button>
+        <div class="overlay" id="overlay">
+          <p id="overMsg">Siap jadi kucing pemburu?</p>
+          <button class="btn btn-main" id="startBtn" type="button">Mulai main</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="hari">
+    <h2 class="h2">Sehari jadi kucing</h2>
+    <p class="sub">Jadwal harian kucing rumahan. Tidak bisa ditawar.</p>
+    <ol class="day">
+      <li><time datetime="04:30">04.30</time><div><b>Lari-larian tengah malam</b><span>Bolak-balik tanpa alasan jelas. Manusia pura-pura tidur.</span></div></li>
+      <li><time datetime="06:00">06.00</time><div><b>Bangunin manusia</b><span>Cara paling ampuh: duduk di dada, lalu menatap lurus.</span></div></li>
+      <li><time datetime="07:00">07.00</time><div><b>Sarapan darurat</b><span>Mangkuk masih ada isinya? Itu tidak dihitung.</span></div></li>
+      <li><time datetime="09:00">09.00</time><div><b>Tidur siang, shift pertama</b><span>Bagian paling sibuk dalam sehari.</span></div></li>
+      <li><time datetime="15:00">15.00</time><div><b>Tidur siang, shift kedua</b><span>Wajib di tempat yang kena sinar matahari.</span></div></li>
+      <li><time datetime="18:00">18.00</time><div><b>Mandi sendiri</b><span>Jilat, jilat, jilat, lalu lupa sedang apa.</span></div></li>
+      <li><time datetime="21:00">21.00</time><div><b>Duduk di atas laptop</b><span>Pas banget waktu manusia lagi kerja.</span></div></li>
+    </ol>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p class="foot-big">Terima kasih sudah mampir 🐾</p>
+  <p>Jangan lupa kasih makan kucingnya.</p>
+  <a class="btn" href="#top">Kembali ke atas</a>
+  <p class="small">© 2026 Repa Ulpi</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const rand = a => a[Math.floor(Math.random() * a.length)];
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, String(v)); } catch (e) {} }
+  };
+
+  /* ---------- tema terang / gelap ---------- */
+  const root = document.documentElement;
+  const themeBtn = $('#themeBtn');
+  const sysDark = () => !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+  const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : sysDark();
+  const paintToggle = () => {
+    const d = isDark();
+    themeBtn.textContent = d ? '☀️' : '🌙';
+    themeBtn.setAttribute('aria-label', d ? 'Ganti ke mode terang' : 'Ganti ke mode gelap');
+  };
+  themeBtn.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('repa-ulpi-theme', next);
+    paintToggle();
+  });
+  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paintToggle); } catch (e) {}
+  paintToggle();
+
+  /* ---------- cakar di latar ---------- */
+  const PAWS = [[5,8,-20,46],[86,5,16,38],[20,44,24,32],[80,38,-24,50],[6,74,12,40],[90,72,-12,34],[48,90,20,42],[36,18,-8,28],[64,62,18,26],[18,92,-30,32]];
+  $('#paws').innerHTML = PAWS.map(p =>
+    `<svg class="paw" viewBox="-14 -16 28 32" style="left:${p[0]}%;top:${p[1]}%;--r:${p[2]}deg;--s:${p[3]}px"><use href="#pawG"/></svg>`
+  ).join('');
+
+  /* ---------- gambar kucing ---------- */
+  const L = '#2E2140';
+  const CATS = {
+    repa:  { name:'Repa',  fur:'#FFA056', dark:'#E27A2E', belly:'#FFEBD2', ear:'#FFB4C8', pattern:'tabby',   collar:'#FF5C86' },
+    ulpi:  { name:'Ulpi',  fur:'#B9C2D0', dark:'#8F9BB0', belly:'#F4F7FA', ear:'#FFB4C8', pattern:'tabby',   collar:'#4DB2FF' },
+    mochi: { name:'Mochi', fur:'#FFFBF4', dark:'#E5D6C4', belly:'#FFFFFF', ear:'#FFC2D1', pattern:'plain',   collar:'#9B7BFF' },
+    kopi:  { name:'Kopi',  fur:'#51456E', dark:'#3B3055', belly:'#665A85', ear:'#FF9FB8', pattern:'plain',   collar:'#FFD84A', glow:'#FFD84A', whisker:'#EBDDF7', happyEye:'#FFD84A' },
+    boba:  { name:'Boba',  fur:'#FFFBF4', dark:'#E5D6C4', belly:'#FFFFFF', ear:'#FFB4C8', pattern:'calico',  collar:'#4ED8A6', tail:'#FFA056', earL:'#FFA056', earR:'#51456E' },
+    tahu:  { name:'Tahu',  fur:'#F7E5C8', dark:'#9A745F', belly:'#FFF6E6', ear:'#C99C88', pattern:'siamese', collar:'#FF8A5C', earL:'#9A745F', earR:'#9A745F', tail:'#9A745F', paw:'#9A745F' }
+  };
+  let uid = 0;
+
+  function catSVG(c) {
+    const n = ++uid;
+    const fur = c.fur, dark = c.dark, belly = c.belly;
+    const iris = c.glow || '#2B1D1A', joy = c.happyEye || L;
+    const earL = c.earL || fur, earR = c.earR || fur, tail = c.tail || fur, paw = c.paw || belly;
+    const bodyD = 'M70 262C58 202 96 170 150 170C204 170 242 202 230 262Q150 276 70 262Z';
+    let bodyM = '', headM = '', tailM = '';
+    if (c.pattern === 'tabby') {
+      bodyM = `<path d="M84 214L102 221M80 234L99 238M216 214L198 221M220 234L201 238" stroke="${dark}" stroke-width="6" stroke-linecap="round" fill="none"/>`;
+      headM = `<path d="M150 46V72M129 50L135 74M171 50L165 74" stroke="${dark}" stroke-width="7" stroke-linecap="round" fill="none"/>`;
+      tailM = `<path d="M271 225L284 231M273 201L286 198" stroke="${dark}" stroke-width="5" stroke-linecap="round" fill="none"/>`;
+    } else if (c.pattern === 'calico') {
+      bodyM = '<ellipse cx="94" cy="208" rx="40" ry="32" fill="#FFA056"/><ellipse cx="216" cy="246" rx="30" ry="24" fill="#51456E"/>';
+      headM = '<ellipse cx="92" cy="76" rx="50" ry="42" fill="#FFA056"/><ellipse cx="218" cy="84" rx="42" ry="34" fill="#51456E"/>';
+    } else if (c.pattern === 'siamese') {
+      headM = `<ellipse cx="150" cy="142" rx="42" ry="30" fill="${dark}" opacity=".8"/>`;
+    }
+    const eye = x => `<g transform="translate(${x} 122)"><g class="blink"><g class="look"><ellipse rx="13" ry="16" fill="${iris}"/>${c.glow ? '<ellipse rx="5.5" ry="12.5" fill="#1C1216"/>' : ''}<circle cx="-4" cy="-6" r="5" fill="#fff"/><circle cx="4.5" cy="6" r="2.4" fill="#fff"/></g></g></g>`;
+    const joyEye = x => `<path class="eye-happy" d="M${x - 14} 128Q${x} 106 ${x + 14} 128" fill="none" stroke="${joy}" stroke-width="6" stroke-linecap="round"/>`;
+    const wAttr = c.whisker ? `stroke="${c.whisker}"` : 'class="whisk"';
+
+    return `<svg viewBox="0 0 300 290" aria-hidden="true" focusable="false">
+<defs><clipPath id="bc${n}"><path d="${bodyD}"/></clipPath><clipPath id="hc${n}"><ellipse cx="150" cy="118" rx="92" ry="76"/></clipPath></defs>
+<ellipse cx="150" cy="278" rx="106" ry="8" fill="#000" opacity=".13"/>
+<g class="tail"><path d="M222 254C282 262 296 204 264 172" fill="none" stroke="${L}" stroke-width="26" stroke-linecap="round"/><path d="M222 254C282 262 296 204 264 172" fill="none" stroke="${tail}" stroke-width="15" stroke-linecap="round"/>${tailM}</g>
+<path d="${bodyD}" fill="${fur}"/>
+<g clip-path="url(#bc${n})">${bodyM}</g>
+<ellipse cx="150" cy="242" rx="36" ry="24" fill="${belly}"/>
+<path d="${bodyD}" fill="none" stroke="${L}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M98 194Q150 224 202 194" fill="none" stroke="${L}" stroke-width="15" stroke-linecap="round"/>
+<path d="M98 194Q150 224 202 194" fill="none" stroke="${c.collar}" stroke-width="9" stroke-linecap="round"/>
+<circle cx="150" cy="219" r="9" fill="#FFD25A" stroke="${L}" stroke-width="4"/><path d="M146 219h8" stroke="${L}" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="118" cy="259" rx="22" ry="13" fill="${paw}" stroke="${L}" stroke-width="5"/>
+<ellipse cx="182" cy="259" rx="22" ry="13" fill="${paw}" stroke="${L}" stroke-width="5"/>
+<path d="M111 253v7M125 253v7M175 253v7M189 253v7" stroke="${L}" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+<path d="M66 104L64 22L124 58Z" fill="${earL}" stroke="${L}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M76 88L76 42L108 62Z" fill="${c.ear}"/>
+<path d="M234 104L236 22L176 58Z" fill="${earR}" stroke="${L}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M224 88L224 42L192 62Z" fill="${c.ear}"/>
+<ellipse cx="150" cy="118" rx="92" ry="76" fill="${fur}"/>
+<g clip-path="url(#hc${n})">${headM}</g>
+<ellipse cx="150" cy="118" rx="92" ry="76" fill="none" stroke="${L}" stroke-width="6"/>
+<ellipse cx="82" cy="146" rx="15" ry="9" fill="#FF8FA8" opacity=".5"/><ellipse cx="218" cy="146" rx="15" ry="9" fill="#FF8FA8" opacity=".5"/>
+${eye(112)}${eye(188)}${joyEye(112)}${joyEye(188)}
+<path d="M141 134L159 134L150 145Z" fill="#FF7C9C" stroke="${L}" stroke-width="3.5" stroke-linejoin="round"/>
+<g class="mouth-smile" fill="none" stroke="${L}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M150 145V151"/><path d="M150 151Q142 161 133 153"/><path d="M150 151Q158 161 167 153"/></g>
+<g class="mouth-open"><path d="M136 150Q138 177 150 177Q162 177 164 150Q150 157 136 150Z" fill="#7A2E3B" stroke="${L}" stroke-width="3.5" stroke-linejoin="round"/><ellipse cx="150" cy="170" rx="7" ry="4.5" fill="#FF8FA8"/></g>
+<g ${wAttr} fill="none" stroke-width="3" stroke-linecap="round" opacity=".75"><path d="M96 148L50 138M96 154L46 156M96 160L52 172"/><path d="M204 148L250 138M204 154L254 156M204 160L248 172"/></g>
+</svg>`;
+  }
+
+  /* ---------- interaksi kucing ---------- */
+  const PET_WORDS  = ['purr purr~', 'enak bangeet', 'lagi dong~', 'mmm… lagi', 'dahi, dahi!', 'kok berhenti?', 'nyam nyam…', 'sayang deh~', 'jangan stop!'];
+  const MEOW_WORDS = ['meong!', 'meooong~', 'miaw!', 'mrrp?', 'ada makanan?', 'mau ikan dong', 'meow meow!'];
+  const MILES = {
+    10: '10 elusan! Kucingnya mulai klepek-klepek 😻',
+    25: '25 elusan! Kamu resmi jadi manusia favorit.',
+    50: '50 elusan! Tangannya nggak pegal?',
+    100: '100 elusan! Gelar baru: Raja/Ratu Kucing 👑',
+    250: '250 elusan! Para kucing bersujud padamu.'
+  };
+
+  const retrigger = (el, cls, ms) => {
+    el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+    clearTimeout(el['_t' + cls]);
+    el['_t' + cls] = setTimeout(() => el.classList.remove(cls), ms);
+  };
+  const hostOf = el => el.closest('.pal, .friend-art') || el;
+
+  function bubble(el, text) {
+    const host = hostOf(el);
+    let b = $('.bubble', host);
+    if (!b) {
+      b = document.createElement('div');
+      b.className = 'bubble';
+      b.setAttribute('aria-hidden', 'true');
+      host.appendChild(b);
+    }
+    b.textContent = text;
+    retrigger(b, 'show', 1900);
+  }
+
+  function hearts(el, n) {
+    const host = hostOf(el);
+    for (let i = 0; i < n; i++) {
+      const h = document.createElement('span');
+      h.className = 'heart';
+      h.textContent = '♥';
+      h.style.setProperty('--x', (30 + Math.random() * 40) + '%');
+      h.style.setProperty('--dx', ((Math.random() - .5) * 60) + 'px');
+      h.style.setProperty('--rot', ((Math.random() - .5) * 50) + 'deg');
+      h.style.animationDelay = (i * 90) + 'ms';
+      h.addEventListener('animationend', () => h.remove());
+      host.appendChild(h);
+    }
+  }
+
+  let toastT;
+  function toast(t) {
+    const e = $('#toast');
+    e.textContent = t;
+    e.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(() => e.classList.remove('show'), 3200);
+  }
+
+  const petEl = $('#petCount');
+  let pets = parseInt(store.get('repa-ulpi-elus', '0'), 10) || 0;
+  petEl.textContent = pets;
+  function addPet() {
+    pets++;
+    petEl.textContent = pets;
+    store.set('repa-ulpi-elus', pets);
+    retrigger(petEl, 'bump', 400);
+    if (MILES[pets]) toast(MILES[pets]);
+  }
+
+  function petCat(el) {
+    retrigger(el, 'happy', 1700);
+    retrigger(el, 'bounce', 700);
+    hearts(el, 4);
+    bubble(el, rand(PET_WORDS));
+    addPet();
+  }
+
+  /* suara meong sintetis (hanya saat tombol ditekan) */
+  let ac;
+  function meowSound(pitch) {
+    try {
+      ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+      if (ac.state === 'suspended') ac.resume();
+      const t = ac.currentTime, d = 0.55;
+      const o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain();
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(420 * pitch, t);
+      o.frequency.exponentialRampToValueAtTime(900 * pitch, t + d * 0.35);
+      o.frequency.exponentialRampToValueAtTime(520 * pitch, t + d);
+      f.type = 'bandpass';
+      f.Q.value = 3;
+      f.frequency.setValueAtTime(900 * pitch, t);
+      f.frequency.linearRampToValueAtTime(1800 * pitch, t + d * 0.4);
+      f.frequency.linearRampToValueAtTime(1000 * pitch, t + d);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.28, t + 0.06);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+      o.connect(f); f.connect(g); g.connect(ac.destination);
+      o.start(t); o.stop(t + d + 0.05);
+    } catch (e) {}
+  }
+
+  function meowCat(el, pitch) {
+    retrigger(el, 'meowing', 650);
+    bubble(el, rand(MEOW_WORDS));
+    meowSound(pitch);
+  }
+
+  function mountCat(el, key) {
+    const c = CATS[key];
+    el.classList.add('cat');
+    el.innerHTML = catSVG(c);
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('aria-label', 'Elus ' + c.name);
+    el.style.setProperty('--blinkd', (-((uid * 1.7) % 5.2)).toFixed(2) + 's');
+    el.addEventListener('click', () => petCat(el));
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); petCat(el); }
+    });
+  }
+
+  /* ---------- hero: Repa dan Ulpi ---------- */
+  mountCat($('#catRepa'), 'repa');
+  mountCat($('#catUlpi'), 'ulpi');
+  const pals = [$('#catRepa'), $('#catUlpi')];
+  $('#petBtn').addEventListener('click', () => pals.forEach((c, i) => setTimeout(() => petCat(c), i * 220)));
+  $('#meowBtn').addEventListener('click', () => pals.forEach((c, i) => setTimeout(() => meowCat(c, i ? 0.8 : 1), i * 420)));
+  setTimeout(() => bubble(pals[0], 'halo manusia!'), 700);
+  setTimeout(() => bubble(pals[1], 'mrrp.'), 1700);
+
+  /* ---------- geng kucing ---------- */
+  const FRIENDS = [
+    { key:'mochi', role:'Si bulat tukang tidur',      fav:'Favorit: tuna kaleng dan bantal empuk',   tint:'var(--mint)',   stats:[['Ngantuk',96],['Manja',82],['Nakal',20]] },
+    { key:'kopi',  role:'Si misterius berbulu hitam', fav:'Favorit: ikan goreng (curi-curi)',        tint:'var(--butter)', stats:[['Ngantuk',60],['Manja',35],['Nakal',90]] },
+    { key:'boba',  role:'Si ceria tiga warna',        fav:'Favorit: susu kucing hangat',             tint:'var(--sky)',    stats:[['Ngantuk',45],['Manja',95],['Nakal',55]] },
+    { key:'tahu',  role:'Si kalem tukang melotot',    fav:'Favorit: ayam rebus tanpa tulang',        tint:'var(--pink)',   stats:[['Ngantuk',70],['Manja',40],['Nakal',30]] }
+  ];
+  const grid = $('#friends');
+  FRIENDS.forEach(f => {
+    const card = document.createElement('article');
+    card.className = 'friend';
+    card.innerHTML = `
+      <div class="friend-art" style="--tint:${f.tint}"><div class="catbox"></div></div>
+      <h3>${CATS[f.key].name}</h3>
+      <p class="role">${f.role}</p>
+      <p class="fav">${f.fav}</p>
+      <div class="stats">${f.stats.map(s => `<div class="stat"><span>${s[0]}</span><div class="bar"><i style="--v:${s[1]}%"></i></div></div>`).join('')}</div>`;
+    grid.appendChild(card);
+    mountCat($('.catbox', card), f.key);
+  });
+  const io = 'IntersectionObserver' in window
+    ? new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); o.unobserve(e.target); } }), { threshold: .25 })
+    : null;
+  $$('.friend').forEach(f => io ? io.observe(f) : f.classList.add('in'));
+
+  /* ---------- mata kucing mengikuti jari / kursor ---------- */
+  let ptr = null, raf = 0;
+  function look() {
+    raf = 0;
+    if (!ptr) return;
+    $$('.cat').forEach(c => {
+      const r = c.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const cx = r.left + r.width / 2, cy = r.top + r.height * 0.42;
+      const dx = ptr.x - cx, dy = ptr.y - cy;
+      const d = Math.hypot(dx, dy) || 1;
+      const k = Math.min(1, d / 160);
+      const mx = (dx / d * 4.5 * k).toFixed(2), my = (dy / d * 4 * k).toFixed(2);
+      $$('.look', c).forEach(l => { l.style.transform = `translate(${mx}px,${my}px)`; });
+    });
+  }
+  addEventListener('pointermove', e => {
+    ptr = { x: e.clientX, y: e.clientY };
+    if (!raf) raf = requestAnimationFrame(look);
+  }, { passive: true });
+
+  /* ---------- game tangkap ikan ---------- */
+  const arena = $('#arena'), fish = $('#fish'), overlay = $('#overlay');
+  const overMsg = $('#overMsg'), startBtn = $('#startBtn');
+  const scoreEl = $('#score'), timeEl = $('#time'), bestEl = $('#best');
+  let score = 0, left = 15, playing = false, tick = null, moveT = null, lastX = 0;
+  let best = parseInt(store.get('repa-ulpi-rekor', '0'), 10) || 0;
+  bestEl.textContent = best;
+
+  function placeFish() {
+    const w = arena.clientWidth, h = arena.clientHeight;
+    const fw = fish.offsetWidth || 64, fh = fish.offsetHeight || 44;
+    const x = Math.round(Math.random() * Math.max(0, w - fw));
+    const y = Math.round(Math.random() * Math.max(0, h - fh));
+    fish.classList.toggle('flip', x > lastX);
+    lastX = x;
+    fish.style.left = x + 'px';
+    fish.style.top = y + 'px';
+  }
+  function scheduleMove() {
+    clearTimeout(moveT);
+    moveT = setTimeout(() => { if (!playing) return; placeFish(); scheduleMove(); }, Math.max(550, 1050 - score * 30));
+  }
+  function startGame() {
+    score = 0; left = 15; playing = true;
+    scoreEl.textContent = 0; timeEl.textContent = left;
+    overlay.hidden = true; fish.hidden = false;
+    placeFish(); scheduleMove();
+    clearInterval(tick);
+    tick = setInterval(() => { left--; timeEl.textContent = left; if (left <= 0) endGame(); }, 1000);
+  }
+  function endGame() {
+    playing = false;
+    clearInterval(tick); clearTimeout(moveT);
+    fish.hidden = true;
+    let msg;
+    if (score > best) {
+      best = score; store.set('repa-ulpi-rekor', best); bestEl.textContent = best;
+      msg = `Rekor baru: ${score} ikan! Kamu kucing pemburu sejati.`;
+    } else if (score >= 12) {
+      msg = `${score} ikan! Jago banget, kucing pemburu.`;
+    } else if (score >= 6) {
+      msg = `${score} ikan. Lumayan, tapi masih bisa lebih licin.`;
+    } else {
+      msg = `${score} ikan. Kucingnya masih ngantuk, coba lagi.`;
+    }
+    overMsg.textContent = msg;
+    startBtn.textContent = 'Main lagi';
+    overlay.hidden = false;
+  }
+  function catchFish() {
+    if (!playing) return;
+    score++;
+    scoreEl.textContent = score;
+    const r = fish.getBoundingClientRect(), a = arena.getBoundingClientRect();
+    const p = document.createElement('span');
+    p.className = 'plus';
+    p.textContent = '+1';
+    p.style.left = (r.left - a.left + r.width / 2) + 'px';
+    p.style.top = (r.top - a.top) + 'px';
+    p.addEventListener('animationend', () => p.remove());
+    arena.appendChild(p);
+    placeFish(); scheduleMove();
+  }
+  fish.addEventListener('pointerdown', e => { e.preventDefault(); catchFish(); });
+  fish.addEventListener('click', e => { if (e.detail === 0) catchFish(); });
+  startBtn.addEventListener('click', startGame);
+})();
+</script>
+</body>
+</html>
